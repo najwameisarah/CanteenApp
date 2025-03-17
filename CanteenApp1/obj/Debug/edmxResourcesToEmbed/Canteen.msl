@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_CanteenModelStoreContainer" CdmEntityContainer="DB_CanteenEntities2">
+    <EntitySetMapping Name="Absensis">
+      <EntityTypeMapping TypeName="DB_CanteenModel.Absensi">
+        <MappingFragment StoreEntitySet="Absensi">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Kelas" ColumnName="Kelas" />
+          <ScalarProperty Name="SetAbsen" ColumnName="SetAbsen" />
+          <ScalarProperty Name="Tanggal" ColumnName="Tanggal" />
+          <ScalarProperty Name="Waktu" ColumnName="Waktu" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kantins">
+      <EntityTypeMapping TypeName="DB_CanteenModel.Kantin">
+        <MappingFragment StoreEntitySet="Kantin">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NamaKantin" ColumnName="NamaKantin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="DB_CanteenModel.Menu">
+        <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NamaMenu" ColumnName="NamaMenu" />
+          <ScalarProperty Name="HPP" ColumnName="HPP" />
+          <ScalarProperty Name="Harga" ColumnName="Harga" />
+          <ScalarProperty Name="SetId" ColumnName="SetId" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="NamaSupplier" ColumnName="NamaSupplier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Penjualans">
+      <EntityTypeMapping TypeName="DB_CanteenModel.Penjualan">
+        <MappingFragment StoreEntitySet="Penjualan">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NamaMenu" ColumnName="NamaMenu" />
+          <ScalarProperty Name="StockAkhir" ColumnName="StockAkhir" />
+          <ScalarProperty Name="SetId" ColumnName="SetId" />
+          <ScalarProperty Name="Keuntungan" ColumnName="Keuntungan" />
+          <ScalarProperty Name="TanggalPenjualan" ColumnName="TanggalPenjualan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="DB_CanteenModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

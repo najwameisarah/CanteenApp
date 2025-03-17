@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_CanteenModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Absensi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Kelas" Type="nvarchar" MaxLength="50" />
+    <Property Name="SetAbsen" Type="int" />
+    <Property Name="Tanggal" Type="date" />
+    <Property Name="Waktu" Type="time" Precision="7" />
+    <Property Name="Foto" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Kantin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NamaKantin" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NamaMenu" Type="nvarchar" MaxLength="100" />
+    <Property Name="HPP" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Harga" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="SetId" Type="int" />
+    <Property Name="Stock" Type="int" Nullable="false" />
+    <Property Name="NamaSupplier" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Penjualan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NamaMenu" Type="nvarchar" MaxLength="100" />
+    <Property Name="StockAkhir" Type="int" Nullable="false" />
+    <Property Name="SetId" Type="int" Nullable="false" />
+    <Property Name="Keuntungan" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="TanggalPenjualan" Type="datetime" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="role" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="10" />
+    <Property Name="created_at" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__Absensi__SetAbse__534D60F1">
+    <End Role="Kantin" Type="Self.Kantin" Multiplicity="0..1" />
+    <End Role="Absensi" Type="Self.Absensi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kantin">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Absensi">
+        <PropertyRef Name="SetAbsen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Menu__SetId__5CD6CB2B">
+    <End Role="Kantin" Type="Self.Kantin" Multiplicity="0..1" />
+    <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kantin">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Menu">
+        <PropertyRef Name="SetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__Penjualan__NamaM__05D8E0BE' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__Penjualan__NamaM__05D8E0BE" />-->
+  <Association Name="FK__Penjualan__SetId__04E4BC85">
+    <End Role="Kantin" Type="Self.Kantin" Multiplicity="1" />
+    <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kantin">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Penjualan">
+        <PropertyRef Name="SetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_CanteenModelStoreContainer">
+    <EntitySet Name="Absensi" EntityType="Self.Absensi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kantin" EntityType="Self.Kantin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Penjualan" EntityType="Self.Penjualan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Absensi__SetAbse__534D60F1" Association="Self.FK__Absensi__SetAbse__534D60F1">
+      <End Role="Kantin" EntitySet="Kantin" />
+      <End Role="Absensi" EntitySet="Absensi" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Menu__SetId__5CD6CB2B" Association="Self.FK__Menu__SetId__5CD6CB2B">
+      <End Role="Kantin" EntitySet="Kantin" />
+      <End Role="Menu" EntitySet="Menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Penjualan__SetId__04E4BC85" Association="Self.FK__Penjualan__SetId__04E4BC85">
+      <End Role="Kantin" EntitySet="Kantin" />
+      <End Role="Penjualan" EntitySet="Penjualan" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

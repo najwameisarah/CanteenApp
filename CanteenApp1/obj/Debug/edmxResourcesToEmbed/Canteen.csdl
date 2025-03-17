@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_CanteenModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Absensi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Kelas" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SetAbsen" Type="Int32" />
+    <Property Name="Tanggal" Type="DateTime" Precision="0" />
+    <Property Name="Waktu" Type="Time" Precision="7" />
+    <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Kantin" Relationship="Self.FK__Absensi__SetAbse__534D60F1" FromRole="Absensi" ToRole="Kantin" />
+  </EntityType>
+  <EntityType Name="Kantin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NamaKantin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Absensis" Relationship="Self.FK__Absensi__SetAbse__534D60F1" FromRole="Kantin" ToRole="Absensi" />
+    <NavigationProperty Name="Menus" Relationship="Self.FK__Menu__SetId__5CD6CB2B" FromRole="Kantin" ToRole="Menu" />
+    <NavigationProperty Name="Penjualans" Relationship="Self.FK__Penjualan__SetId__04E4BC85" FromRole="Kantin" ToRole="Penjualan" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NamaMenu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HPP" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Harga" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SetId" Type="Int32" />
+    <Property Name="Stock" Type="Int32" Nullable="false" />
+    <Property Name="NamaSupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Kantin" Relationship="Self.FK__Menu__SetId__5CD6CB2B" FromRole="Menu" ToRole="Kantin" />
+  </EntityType>
+  <EntityType Name="Penjualan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NamaMenu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="StockAkhir" Type="Int32" Nullable="false" />
+    <Property Name="SetId" Type="Int32" Nullable="false" />
+    <Property Name="Keuntungan" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="TanggalPenjualan" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Kantin" Relationship="Self.FK__Penjualan__SetId__04E4BC85" FromRole="Penjualan" ToRole="Kantin" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK__Absensi__SetAbse__534D60F1">
+    <End Role="Kantin" Type="Self.Kantin" Multiplicity="0..1" />
+    <End Role="Absensi" Type="Self.Absensi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kantin">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Absensi">
+        <PropertyRef Name="SetAbsen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Menu__SetId__5CD6CB2B">
+    <End Role="Kantin" Type="Self.Kantin" Multiplicity="0..1" />
+    <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kantin">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Menu">
+        <PropertyRef Name="SetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Penjualan__SetId__04E4BC85">
+    <End Role="Kantin" Type="Self.Kantin" Multiplicity="1" />
+    <End Role="Penjualan" Type="Self.Penjualan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kantin">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Penjualan">
+        <PropertyRef Name="SetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_CanteenEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Absensis" EntityType="Self.Absensi" />
+    <EntitySet Name="Kantins" EntityType="Self.Kantin" />
+    <EntitySet Name="Menus" EntityType="Self.Menu" />
+    <EntitySet Name="Penjualans" EntityType="Self.Penjualan" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="FK__Absensi__SetAbse__534D60F1" Association="Self.FK__Absensi__SetAbse__534D60F1">
+      <End Role="Kantin" EntitySet="Kantins" />
+      <End Role="Absensi" EntitySet="Absensis" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Menu__SetId__5CD6CB2B" Association="Self.FK__Menu__SetId__5CD6CB2B">
+      <End Role="Kantin" EntitySet="Kantins" />
+      <End Role="Menu" EntitySet="Menus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Penjualan__SetId__04E4BC85" Association="Self.FK__Penjualan__SetId__04E4BC85">
+      <End Role="Kantin" EntitySet="Kantins" />
+      <End Role="Penjualan" EntitySet="Penjualans" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

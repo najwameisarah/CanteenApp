@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="83854f7a1bc1429dabb21eaf629205f7" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_CanteenModel.Absensi" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_CanteenModel.Kantin" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_CanteenModel.Menu" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_CanteenModel.Penjualan" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_CanteenModel.user" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DB_CanteenModel.FK__Absensi__SetAbse__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_CanteenModel.FK__Menu__SetId__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_CanteenModel.FK__Penjualan__SetId__04E4BC85" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
