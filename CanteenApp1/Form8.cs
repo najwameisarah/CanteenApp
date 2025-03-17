@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using ExcelLicense = OfficeOpenXml.LicenseContext;
 
 namespace CanteenApp1
 {
@@ -18,7 +21,7 @@ namespace CanteenApp1
         public Adminabsensi()
         {
             InitializeComponent();
-            
+
             timer1 = new Timer();
             timer1.Interval = 1000; // Set interval ke 1 detik
             timer1.Tick += new EventHandler(guna2HtmlLabel1_Click); // Event handler untuk Timer
@@ -112,6 +115,62 @@ namespace CanteenApp1
         {
             guna2HtmlLabel1.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
 
+        }
+
+        private SaveFileDialog saveFileDialog = new SaveFileDialog();
+        private void Export_Click(object sender, EventArgs e)
+        {
+            saveFileDialog.Filter = "Excel File (*.xlsx)|*.xlsx";
+            saveFileDialog.Title = "Save as Excel File";
+            saveFileDialog.FileName = "DataAbsensi.xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = saveFileDialog.FileName;
+                AdminMenu.ExportToExcell(absensiDataGridView, path);
+
+            }
+        }
+        public static void ExportToExcell(DataGridView dataGridView, string path)
+        {
+
+            try
+            {
+              
+            OfficeOpenXml.ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+                using (ExcelPackage excel = new ExcelPackage())
+                {
+                    var ws = excel.Workbook.Worksheets.Add("Data Absensi");
+
+                    // Set header sesuai tabel di gambar
+                    string[] headers = { "Id", "Nama", "Kelas", "Set Absen", "Tanggal", "Waktu", "Foto" };
+                    for (int col = 0; col < headers.Length; col++)
+                    {
+                        ws.Cells[1, col + 1].Value = headers[col];
+                        ws.Cells[1, col + 1].Style.Font.Bold = true;
+                    }
+
+                    // Ambil data dari DataGridView
+                    for (int row = 0; row < dataGridView.Rows.Count; row++)
+                    {
+                        for (int col = 0; col < headers.Length; col++)
+                        {
+                            ws.Cells[row + 2, col + 1].Value = dataGridView.Rows[row].Cells[col].Value?.ToString();
+                        }
+                    }
+
+                    // Simpan ke file
+                    FileInfo excelFile = new FileInfo(path);
+                    excel.SaveAs(excelFile);
+
+                    MessageBox.Show("File Absensi berhasil diexport!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Terjadi kesalahan: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
